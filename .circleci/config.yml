@@ -1,0 +1,35 @@
+version: 2
+
+# 参考: https://www.ncaq.net/2019/03/08/21/12/35/
+jobs:
+  build:
+    docker:
+      - image: circleci/rust
+    steps:
+      - checkout
+      - run:
+          name: rustup version
+          command: rustup --version
+      - run:
+          name: rustup component add
+          command: rustup component add clippy rustfmt
+      - restore_cache:
+          keys:
+            - v1-cargo-lock-{{ checksum "Cargo.lock" }}
+      - run:
+          name: build
+          command: cargo build
+      - save_cache:
+          key: v1-cargo-lock-{{ checksum "Cargo.lock" }}
+          paths:
+            - /usr/local/cargo/registry
+            - target
+      - run:
+          name: format
+          command: cargo fmt -- --check
+      - run:
+          name: lint
+          command: cargo clippy -- -D warnings
+      - run:
+          name: test
+          command: cargo test
