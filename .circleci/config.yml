@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/rust
+    steps:
+      - checkout
+      - run:
+          name: rustup version
+          command: rustup --version
+      - run:
+          name: rustup component add
+          command: rustup component add clippy rustfmt
+      - restore_cache:
+          keys:
+            - cargo-lock-{{ checksum "Cargo.lock" }}
+      - run:
+          name: build
+          command: cargo build
+      - save_cache:
+          keys:
+            - cargo-lock-{{ checksum "Cargo.lock" }}
+          paths:
+            - /usr/local/cargo/registry
+            - target
+      - run:
+          name: lint
+          command: cargo clippy -- -D warnings
+      - run:
+          name: test
+          command: cargo test
