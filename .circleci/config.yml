@@ -15,13 +15,12 @@ jobs:
           command: rustup component add clippy rustfmt
       - restore_cache:
           keys:
-            - cargo-lock-{{ checksum "Cargo.lock" }}
+            - v1-cargo-lock-{{ checksum "Cargo.lock" }}
       - run:
           name: build
           command: cargo build
       - save_cache:
-          keys:
-            - cargo-lock-{{ checksum "Cargo.lock" }}
+          key: v1-cargo-lock-{{ checksum "Cargo.lock" }}
           paths:
             - /usr/local/cargo/registry
             - target
