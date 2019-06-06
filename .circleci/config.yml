@@ -26,6 +26,9 @@ jobs:
             - /usr/local/cargo/registry
             - target
       - run:
+          name: format
+          command: cargo fmt -- --check
+      - run:
           name: lint
           command: cargo clippy -- -D warnings
       - run:
