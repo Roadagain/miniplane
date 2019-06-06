@@ -1,4 +1,6 @@
 version: 2
+
+# 参考: https://www.ncaq.net/2019/03/08/21/12/35/
 jobs:
   build:
     docker:
