@@ -1,2 +1,2 @@
-# miniature-plane
+# miniplane
 Magic: the Gathering simulator
