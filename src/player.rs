@@ -1,10 +1,10 @@
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Player {
     life: u32,
 }
 
 impl Player {
     pub fn new() -> Self {
-        return Player{life:20}
+        Player { life: 20 }
     }
 }
