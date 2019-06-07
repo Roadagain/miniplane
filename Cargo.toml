@@ -1,5 +1,5 @@
 [package]
-name = "miniature-plane"
+name = "miniplane"
 version = "0.1.0"
 authors = ["Roadagain <ringoh72@gmail.com>"]
 edition = "2018"
