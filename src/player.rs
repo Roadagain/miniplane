@@ -1,10 +1,16 @@
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Player {
     life: u32,
 }
 
 impl Player {
-    pub fn new() -> Self {
-        Player { life: 20 }
+    fn new(life: u32) -> Self {
+        Player { life }
+    }
+}
+
+impl Default for Player {
+    fn default() -> Self {
+        Self::new(20)
     }
 }
