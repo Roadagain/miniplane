@@ -14,3 +14,14 @@ impl Default for Player {
         Self::new(20)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::Player;
+
+    #[test]
+    fn default_life_is_20() {
+        let player: Player = Default::default();
+        assert_eq!(player.life, 20)
+    }
+}
