@@ -13,6 +13,10 @@ impl Creature {
         }
         Creature { power, toughness }
     }
+
+    pub fn attack<T: Attackable>(&self, target: &mut T) {
+        (*target).damage(self.power);
+    }
 }
 
 impl Attackable for Creature {

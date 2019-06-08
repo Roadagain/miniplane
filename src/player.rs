@@ -33,6 +33,7 @@ impl Attackable for Player {
 #[cfg(test)]
 mod test {
     use crate::attackable::Attackable;
+    use crate::creature::Creature;
     use crate::player::Player;
 
     #[test]
@@ -53,5 +54,13 @@ mod test {
         let mut player: Player = Default::default();
         player.damage(-4);
         assert_eq!(player.life, 20);
+    }
+
+    #[test]
+    fn attack_to_player() {
+        let creature = Creature::new(2, 2);
+        let mut player: Player = Default::default();
+        creature.attack(&mut player);
+        assert_eq!(player.life, 18);
     }
 }
