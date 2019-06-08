@@ -17,7 +17,11 @@ impl Player {
             panic!("Selected index is out of creatures");
         }
         let blocker = &mut self.creatures[creature_index];
-        (*blocker).damage(damage)
+        let counter_damage = (*blocker).damage(damage);
+        if blocker.is_dead() {
+            self.creatures.remove(creature_index);
+        }
+        counter_damage
     }
 }
 
@@ -86,5 +90,13 @@ mod test {
         assert_eq!(player.life, 20);
         assert_eq!(player.creatures[0], Creature::new(1, 1));
         assert_eq!(creature, Creature::new(2, 1));
+    }
+
+    #[test]
+    fn creature_dies_by_block() {
+        let mut player = Player::new(20, vec![Creature::new(1, 2)]);
+        let mut creature = Creature::new(2, 2);
+        creature.attack(&mut player);
+        assert_eq!(player.creatures, []);
     }
 }
