@@ -1,4 +1,4 @@
-use crate::attackable::Attackable;
+use crate::attack_target::AttackTarget;
 
 #[derive(Debug)]
 pub struct Player {
@@ -17,7 +17,7 @@ impl Default for Player {
     }
 }
 
-impl Attackable for Player {
+impl AttackTarget for Player {
     fn damage(&mut self, damage: i32) {
         if damage < 0 {
             return;
@@ -32,7 +32,7 @@ impl Attackable for Player {
 
 #[cfg(test)]
 mod test {
-    use crate::attackable::Attackable;
+    use crate::attack_target::AttackTarget;
     use crate::creature::Creature;
     use crate::player::Player;
 
