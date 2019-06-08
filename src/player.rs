@@ -12,11 +12,12 @@ impl Player {
         Player { life, creatures }
     }
 
-    fn block(&mut self, damage: i32) -> i32 {
-        if self.creatures.is_empty() {
-            panic!("Creatures are empty");
+    fn block(&mut self, creature_index: usize, damage: i32) -> i32 {
+        if self.creatures.len() <= creature_index {
+            panic!("Selected index is out of creatures");
         }
-        self.creatures[0].damage(damage)
+        let blocker = &mut self.creatures[creature_index];
+        (*blocker).damage(damage)
     }
 }
 
@@ -29,7 +30,7 @@ impl Default for Player {
 impl AttackTarget for Player {
     fn damage(&mut self, damage: i32) -> i32 {
         if !self.creatures.is_empty() {
-            return self.block(damage);
+            return self.block(0, damage);
         }
         if damage > 0 {
             self.life -= damage;
