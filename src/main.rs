@@ -1,4 +1,3 @@
-
 use miniplane::creature::Creature;
 use miniplane::player::Player;
 fn main() {

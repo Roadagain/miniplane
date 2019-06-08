@@ -1,3 +1,5 @@
+use crate::attackable::Attackable;
+
 #[derive(Debug)]
 pub struct Creature {
     power: i32,
@@ -10,5 +12,38 @@ impl Creature {
             panic!("Toughness must be greather than 0")
         }
         Creature { power, toughness }
+    }
+}
+
+impl Attackable for Creature {
+    fn damage(&mut self, value: i32) {
+        if value <= 0 {
+            return;
+        }
+        self.toughness -= value;
+    }
+
+    fn is_dead(&self) -> bool {
+        self.toughness <= 0
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::attackable::Attackable;
+    use crate::creature::Creature;
+
+    #[test]
+    fn death_by_attack() {
+        let mut creature = Creature::new(1, 1);
+        creature.damage(2);
+        assert!(creature.is_dead())
+    }
+
+    #[test]
+    fn negative_damage_is_0() {
+        let mut creature = Creature::new(1, 1);
+        creature.damage(-1);
+        assert_eq!(creature.toughness, 1);
     }
 }

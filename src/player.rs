@@ -1,3 +1,5 @@
+use crate::attackable::Attackable;
+
 #[derive(Debug)]
 pub struct Player {
     life: i32,
@@ -7,13 +9,6 @@ impl Player {
     fn new(life: i32) -> Self {
         Player { life }
     }
-
-    pub fn damage(&mut self, damage: i32) {
-        if damage < 0 {
-            return;
-        }
-        self.life -= damage;
-    }
 }
 
 impl Default for Player {
@@ -22,9 +17,23 @@ impl Default for Player {
     }
 }
 
+impl Attackable for Player {
+    fn damage(&mut self, damage: i32) {
+        if damage < 0 {
+            return;
+        }
+        self.life -= damage;
+    }
+
+    fn is_dead(&self) -> bool {
+        self.life <= 0
+    }
+}
+
 #[cfg(test)]
 mod test {
-    use super::Player;
+    use crate::attackable::Attackable;
+    use crate::player::Player;
 
     #[test]
     fn default_life_is_20() {
