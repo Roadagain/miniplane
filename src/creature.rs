@@ -1,6 +1,7 @@
 use crate::attack_target::AttackTarget;
+use crate::attackable::Attackable;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Creature {
     power: i32,
     toughness: i32,
@@ -13,22 +14,25 @@ impl Creature {
         }
         Creature { power, toughness }
     }
-
-    pub fn attack<T: AttackTarget>(&self, target: &mut T) {
-        (*target).damage(self.power);
-    }
 }
 
 impl AttackTarget for Creature {
-    fn damage(&mut self, value: i32) {
-        if value <= 0 {
-            return;
+    fn damage(&mut self, value: i32) -> i32 {
+        if value > 0 {
+            self.toughness -= value;
         }
-        self.toughness -= value;
+        self.power
     }
 
     fn is_dead(&self) -> bool {
         self.toughness <= 0
+    }
+}
+
+impl Attackable for Creature {
+    fn attack<T: AttackTarget>(&mut self, target: &mut T) {
+        let damage = (*target).damage(self.power);
+        self.damage(damage);
     }
 }
 
