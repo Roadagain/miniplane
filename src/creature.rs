@@ -1,6 +1,10 @@
 use crate::attack_target::AttackTarget;
 use crate::attackable::Attackable;
 
+pub trait ICreature: AttackTarget + Attackable {
+    fn die(&mut self);
+}
+
 #[derive(Debug, PartialEq)]
 pub struct Creature {
     power: i32,
@@ -36,10 +40,17 @@ impl Attackable for Creature {
     }
 }
 
+impl ICreature for Creature {
+    fn die(&mut self) {
+        self.toughness = 0;
+    }
+}
+
 #[cfg(test)]
 mod test {
     use crate::attack_target::AttackTarget;
     use crate::creature::Creature;
+    use crate::creature::ICreature;
 
     #[test]
     fn death_by_attack() {
@@ -53,5 +64,12 @@ mod test {
         let mut creature = Creature::new(1, 1);
         creature.damage(-1);
         assert_eq!(creature.toughness, 1);
+    }
+
+    #[test]
+    fn die() {
+        let mut creature = Creature::new(1, 1);
+        creature.die();
+        assert!(creature.is_dead())
     }
 }
