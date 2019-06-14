@@ -1,9 +1,8 @@
 use crate::attack_target::AttackTarget;
 use crate::attackable::Attackable;
+use crate::permanent::Permanent;
 
-pub trait ICreature: AttackTarget + Attackable {
-    fn die(&mut self);
-}
+pub trait ICreature: AttackTarget + Attackable + Permanent {}
 
 #[derive(Debug, PartialEq)]
 pub struct Creature {
@@ -40,8 +39,8 @@ impl Attackable for Creature {
     }
 }
 
-impl ICreature for Creature {
-    fn die(&mut self) {
+impl Permanent for Creature {
+    fn destroy(&mut self) {
         self.toughness = 0;
     }
 }
@@ -50,7 +49,7 @@ impl ICreature for Creature {
 mod test {
     use crate::attack_target::AttackTarget;
     use crate::creature::Creature;
-    use crate::creature::ICreature;
+    use crate::permanent::Permanent;
 
     #[test]
     fn death_by_attack() {
@@ -67,9 +66,9 @@ mod test {
     }
 
     #[test]
-    fn die() {
+    fn destroy() {
         let mut creature = Creature::new(1, 1);
-        creature.die();
+        creature.destroy();
         assert!(creature.is_dead())
     }
 }
