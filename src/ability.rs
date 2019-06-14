@@ -5,3 +5,5 @@ pub trait Ability {
 
     fn resolve(target: &mut Self::Target);
 }
+
+pub mod deathtouch;
