@@ -1,3 +1,4 @@
+pub mod ability;
 pub mod attack_target;
 pub mod attackable;
 pub mod creature;
