@@ -1,6 +1,7 @@
 use crate::attack_target::AttackTarget;
 use crate::attackable::Attackable;
 use crate::permanent::Permanent;
+use crate::ability::AbilityTarget;
 
 pub trait ICreature: AttackTarget + Attackable + Permanent {}
 
@@ -38,6 +39,8 @@ impl Attackable for Creature {
         self.damage(damage);
     }
 }
+
+impl AbilityTarget for Creature {}
 
 impl Permanent for Creature {
     fn destroy(&mut self) {
