@@ -1,5 +1,5 @@
 use crate::attack_target::AttackTarget;
 
-pub trait Attackable {
+pub trait Attacker {
     fn attack<T: AttackTarget>(&mut self, target: &mut T);
 }

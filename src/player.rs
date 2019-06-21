@@ -50,7 +50,7 @@ impl AttackTarget for Player {
 #[cfg(test)]
 mod test {
     use crate::attack_target::AttackTarget;
-    use crate::attackable::Attackable;
+    use crate::attacker::Attacker;
     use crate::creature::Creature;
     use crate::player::Player;
 

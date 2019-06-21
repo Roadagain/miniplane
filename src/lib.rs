@@ -1,6 +1,6 @@
 pub mod ability;
 pub mod attack_target;
-pub mod attackable;
+pub mod attacker;
 pub mod creature;
 pub mod permanent;
 pub mod player;

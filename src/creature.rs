@@ -1,9 +1,9 @@
 use crate::ability::AbilityTarget;
 use crate::attack_target::AttackTarget;
-use crate::attackable::Attackable;
+use crate::attacker::Attacker;
 use crate::permanent::Permanent;
 
-pub trait ICreature: AttackTarget + Attackable + Permanent {}
+pub trait ICreature: AttackTarget + Attacker + Permanent {}
 
 #[derive(Debug, PartialEq)]
 pub struct Creature {
@@ -33,7 +33,7 @@ impl AttackTarget for Creature {
     }
 }
 
-impl Attackable for Creature {
+impl Attacker for Creature {
     fn attack<T: AttackTarget>(&mut self, target: &mut T) {
         let damage = (*target).damage(self.power);
         self.damage(damage);
