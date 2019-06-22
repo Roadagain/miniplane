@@ -2,7 +2,7 @@ use crate::ability::Ability;
 use crate::creature::Creature;
 use crate::permanent::Permanent;
 
-pub struct Deathtouch {}
+pub struct Deathtouch;
 
 impl Ability for Deathtouch {
     type Target = Creature;
